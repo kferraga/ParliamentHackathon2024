@@ -1,0 +1,10 @@
+parla_tag,house_type
+parla.uni,Unicameralism
+parla.bi,Bicameralism
+parla.multi,Multicameralism
+parla.committee.standing,Standing committee
+parla.committee.special,Special committee
+parla.committee.inquiry,Committee of inquiry
+parla.upper,Upper house
+parla.lower,Lower house
+parla.chamber,Chamber
