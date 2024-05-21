@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 
+%environment
+  export APPTAINER_CACHEDIR=/tmp/user/temporary-cache
+
 %files 
   requirements.txt requirements.txt
   qDora.py qDora.py
