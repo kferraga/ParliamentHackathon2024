@@ -2,7 +2,7 @@ Bootstrap: docker
 From: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 
 %environment
-  export APPTAINER_CACHEDIR=/tmp/user/temporary-cache
+  export APPTAINER_CACHEDIR=/tmp/apptainer_cache
 
 %files 
   requirements.txt requirements.txt
