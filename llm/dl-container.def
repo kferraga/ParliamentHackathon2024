@@ -5,7 +5,7 @@ From: nvidia/cuda:12.4.0-base-ubuntu22.04
   #APPTAINER_TMPDIR=/scratch/project_2010365 
   export APPTAINER_TMPDIR=$LOCAL_SCRATCH
   export APPTAINER_CACHEDIR=$LOCAL_SCRATCH
-
+  export PIP_CACHE_DIR=$LOCAL_SCRATCH
 %files 
   requirements.txt requirements.txt
   qDora.py qDora.py
