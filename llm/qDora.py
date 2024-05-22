@@ -153,10 +153,10 @@ class TrainingArguments(transformers.TrainingArguments):
     )
     output_dir: str = field(default='./output_cls', metadata={"help": 'The output dir for logs and checkpoints'})
     optim: str = field(default='adamw_torch', metadata={"help": 'The optimizer to be used'})
-    per_device_train_batch_size: int = field(default=256, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
+    per_device_train_batch_size: int = field(default=128, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
     #per_device_eval_batch_size: int = field(default=24, metadata={"help":'The evaluation/prediction batch sizer per GPU. Change if out of memory in evaluation/prediction.'})
     gradient_accumulation_steps: int = field(default=16, metadata={"help": 'How many gradients to accumulate before to perform an optimizer step'})
-    max_steps: int = field(default=592, metadata={"help": 'How many optimizer update steps to take.'})
+    max_steps: int = field(default=1183, metadata={"help": 'How many optimizer update steps to take.'})
     weight_decay: float = field(default=0.0, metadata={"help": 'The L2 weight decay rate of AdamW'}) # use lora dropout instead for regularization if needed
     learning_rate: float = field(default=0.0002, metadata={"help": 'The learnign rate'})
     remove_unused_columns: bool = field(default=False, metadata={"help": 'Removed unused columns. Needed to make this codebase work.'})
