@@ -61,16 +61,12 @@ logging.getLogger(__name__).setLevel(logging.INFO)
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[MASK]"
 
-# insert weightst for weighted CE here as list of weights where position in list coincides with label
-class_weights = torch.Tensor(np.load("class-weights.npy")).to(device="cuda:0")
-with open('config.json') as f:
-    d = json.load(f)
-    id2label = d["id2label"]
+
 
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(
-        default= "FacebookAI/xlm-roberta-base"
+        default= "FacebookAI/xlm-roberta-large"
     )
     trust_remote_code: Optional[bool] = field(
         default=False,
@@ -90,22 +86,22 @@ class DataArguments:
         },
     )
     max_eval_samples: Optional[int] = field(
-        default=None, #0.5*112175
+        default=None, 
         metadata={
             "help": "For debugging purposes or quicker training, truncate the number of evaluation examples to this "
             "value if set."
         },
     )
     source_max_len: int = field(
-        default=256,
+        default=1024,
         metadata={"help": "Maximum source sequence length. Sequences will be right padded (and possibly truncated)."},
     )
     train_dataset: str = field(
-        default='data/train.parquet',
+        default='train.parquet',
         metadata={"help": "Which dataset to finetune on. See datamodule for options."}
     )
     test_dataset: str = field(
-        default='data/test.parquet',
+        default='test.parquet',
         metadata={"help": "Which dataset to test on. See datamodule for options."}
     )
     predict_dataset: str = field(
@@ -151,12 +147,16 @@ class TrainingArguments(transformers.TrainingArguments):
         metadata={"help": "To use wandb or something else for reporting."}
     )
     num_labels: int = field(
-        default=30,
+        default=4,
         metadata={"help":'Number of classes in dataset.'}
     )
+    run_name: str = field(
+        default='argumentHackathon',
+    metadata={"help":'Name of the wandb run.'}
+    )
     output_dir: str = field(default='./output_cls', metadata={"help": 'The output dir for logs and checkpoints'})
-    optim: str = field(default='adamw_8bit', metadata={"help": 'The optimizer to be used'})
-    per_device_train_batch_size: int = field(default=16, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
+    optim: str = field(default='adamw_torch', metadata={"help": 'The optimizer to be used'})
+    per_device_train_batch_size: int = field(default=8, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
     #per_device_eval_batch_size: int = field(default=24, metadata={"help":'The evaluation/prediction batch sizer per GPU. Change if out of memory in evaluation/prediction.'})
     gradient_accumulation_steps: int = field(default=16, metadata={"help": 'How many gradients to accumulate before to perform an optimizer step'})
     max_steps: int = field(default=10111, metadata={"help": 'How many optimizer update steps to take.'})
@@ -378,7 +378,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                     train_dataset = train_dataset.select(range(args.max_train_samples))
             except:
                 raise ValueError(f"Error loading dataset from {args.train_dataset}")   
-            tk_train_dataset=train_dataset.map(lambda examples: tokenizer(examples["text"]), batched=True,remove_columns=["text"])
+            tk_train_dataset=train_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True,remove_columns=["text"])
             print(tk_train_dataset)
     # eval data
         if args.do_eval: 
@@ -387,7 +387,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 #eval_dataset = eval_dataset.remove_columns("labels")
                 if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
                     eval_dataset = eval_dataset.select(range(args.max_eval_samples))
-                tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"]), batched=True, remove_columns=["text"])
+                tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True, remove_columns=["text"])
             except:
                 raise ValueError(f"Error loading dataset from {args.test_dataset}")                
 
@@ -469,7 +469,7 @@ def train():
         return {"precision": precision, "recall": recall, "f1-weighted": f1, 'balanced-accuracy': b_accuracy,"accuracy": accuracy, "top_2_accuracy":top_2_accuracy}#, "roc_auc":roc_auc}
     
     # define trainer
-    trainer = CustomTrainer(
+    trainer = Trainer(
         model=model,
         tokenizer=tokenizer,
         args=training_args,
