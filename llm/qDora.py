@@ -497,10 +497,11 @@ def train():
         print(k, v, v/total)
 
     if args.report_to == 'wandb':
-      import wandb
-      os.environ["WANDB_PROJECT"] = "Hackathon2024"  # name your W&B project
-      os.environ["WANDB_LOG_MODEL"] = "checkpoint"
-      wandb.login()
+        import wandb
+        os.environ["WANDB_PROJECT"] = "Hackathon2024"  # name your W&B project
+        os.environ["WANDB_LOG_MODEL"] = "checkpoint"
+        os.environ["WANDB_API_KEY"] = "key"
+        wandb.login()
 
 
 
