@@ -3,7 +3,7 @@
 #SBATCH -J qDora
 #SBATCH -o qDora.%j.out
 #SBATCH -e qDora.%j.err
-#SBATCH --partition=gpu
+#SBATCH --partition=gputest
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
