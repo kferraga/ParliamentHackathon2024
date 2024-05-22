@@ -19,6 +19,7 @@ set -e
 
 # set up wandb api
 WANDB_API_KEY=
+wandb login $WANDB_API_KEY
 
 ./venv/bin/python ./qDora.py
 
