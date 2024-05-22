@@ -460,20 +460,20 @@ def train():
         predictions = np.argmax(logits, axis=-1)
 
 
-        class_rep = classification_report(y_true=labels,y_pred=predictions,target_names=id2label.values(),output_dict=True)
-        b_accuracy = balanced_accuracy_score(y_true=labels,y_pred=predictions)
-        top_2_accuracy = top_k_accuracy_score(y_true=labels,y_score=logits,k=2)
+        #class_rep = classification_report(y_true=labels,y_pred=predictions,target_names=id2label.values(),output_dict=True)
+        #b_accuracy = balanced_accuracy_score(y_true=labels,y_pred=predictions)
+        #top_2_accuracy = top_k_accuracy_score(y_true=labels,y_score=logits,k=2)
         accuracy = accuracy_score(y_true=labels,y_pred=predictions)
         precision = precision_score(y_true=labels,y_pred=predictions,average="weighted")
         recall = recall_score(y_true=labels,y_pred=predictions,average="weighted")
         f1 = f1_score(y_true=labels,y_pred=predictions, average="weighted")
         #roc_auc = roc_auc_score(y_true=labels,y_score=probabilities,average="weighted")
         # save class report
-        with open('class_rep.pickle', 'wb') as handle:
-            pickle.dump(class_rep, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        print(class_rep)
+        #with open('class_rep.pickle', 'wb') as handle:
+         #   pickle.dump(class_rep, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        #print(class_rep)
         # The trainer is expecting a dictionary where the keys are the metrics names and the values are the scores.
-        return {"precision": precision, "recall": recall, "f1-weighted": f1, 'balanced-accuracy': b_accuracy,"accuracy": accuracy, "top_2_accuracy":top_2_accuracy}#, "roc_auc":roc_auc}
+        return {"precision": precision, "recall": recall, "f1-weighted": f1, "accuracy": accuracy}#, 'balanced-accuracy': b_accuracy,"top_2_accuracy":top_2_accuracy}#, "roc_auc":roc_auc}
 
     # define trainer
     trainer = Trainer(
