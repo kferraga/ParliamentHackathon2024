@@ -475,12 +475,14 @@ def train():
                    'accuracy': accuracy}
         return metrics
 
-    def compute_metrics(p: EvalPrediction):
-        preds = p.predictions[0] if isinstance(p.predictions, 
-                tuple) else p.predictions
+    def compute_metrics(eval_pred):
+        print(eval_pred)
+        #preds = p.predictions[0] if isinstance(p.predictions, 
+        #        tuple) else p.predictions
+        logits,labels = eval_pred
         result = multi_label_metrics(
-            predictions=preds, 
-            labels=p.label_ids)
+            predictions=logits, 
+            labels=labels)
         return result
 #    def compute_metrics(eval_pred):
 #        print("***Compute Metrics***")
