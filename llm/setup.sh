@@ -17,9 +17,6 @@ echo “Starting at” $(date)
 set -e 
 # module load python-data/3.10-24.04
 
-# set the number of threads based on --cpus-per-task
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-
 # set wandb api key
 WANDB_API_KEY=
 
