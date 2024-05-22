@@ -500,8 +500,7 @@ def train():
         import wandb
         os.environ["WANDB_PROJECT"] = "Hackathon2024"  # name your W&B project
         os.environ["WANDB_LOG_MODEL"] = "checkpoint"
-        os.environ["WANDB_API_KEY"] = "key"
-        wandb.login()
+        wandb.login(key="")
 
 
 
