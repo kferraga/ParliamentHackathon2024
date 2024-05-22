@@ -20,7 +20,7 @@ set -e
 # set up wandb api
 export WANDB_API_KEY=
 
-./venv/bin/python/wandb login 
+./venv/bin/wandb login 
 ./venv/bin/python ./qDora.py
 
 
