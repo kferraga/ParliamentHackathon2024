@@ -1,5 +1,5 @@
 #parlamint_speech_sorting.py
-import pandas
+import pandas as pd
 import xml.etree.ElementTree as ET
 
 # Setup Information

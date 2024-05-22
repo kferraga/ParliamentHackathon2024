@@ -16,4 +16,5 @@ def get_legislature_taxonomy(input_path, export_path):
             [category.attrib[f"{{{namespace['xml']}}}id"], category.find("tei:catDesc/tei:term", namespace).text] for category in elem.findall("tei:category/tei:category", namespace) + elem.findall("tei:category/tei:category/tei:category", namespace)
         ]
         legislature_taxonomy = pandas.DataFrame(categories, columns = ["parla_tag", "house_type"])
-        legislature_taxonomy.to_csv(export_path, index=False)
+        legislature_taxonomy.to_csv(f"{export_path}\\legislature_taxonomy.csv", index=False)
+

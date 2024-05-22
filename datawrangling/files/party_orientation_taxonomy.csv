@@ -1,0 +1,19 @@
+parla_tag,party_orientation
+orientation.L,Left
+orientation.C,Centre
+orientation.R,Right
+orientation.FL,Far-left
+orientation.FR,Far-right
+orientation.CL,Centre-left
+orientation.CR,Centre-right
+orientation.CCL,Centre to centre-left
+orientation.CCR,Centre to centre-right
+orientation.CLL,Centre-left to left
+orientation.CRR,Centre-right to right
+orientation.LLF,Left to far-left
+orientation.RRF,Right to far-right
+orientation.BT,Big tent
+orientation.NP,Nonpartisanism
+orientation.PP,Pirate Party
+orientation.SI,Single Issue Politics
+orientation.SY,Syncretic politics

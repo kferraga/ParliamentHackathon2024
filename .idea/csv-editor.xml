@@ -10,6 +10,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\datawrangling\files\party_orientation_taxonomy.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\datawrangling\party_orientation.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
