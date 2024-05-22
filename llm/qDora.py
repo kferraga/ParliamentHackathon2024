@@ -326,8 +326,7 @@ def get_accelerate_model(args, checkpoint_dir):
                 lora_alpha=16,
                 lora_dropout=0.0,
                 task_type=TaskType.SEQ_CLS,
-                # modules_to_save=['classifier'],
-                use_dora=True
+                modules_to_save=['classifier'],
             )
             model = get_peft_model(model, config)
 
