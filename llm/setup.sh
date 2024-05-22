@@ -18,7 +18,7 @@ set -e
 # module load python-data/3.10-24.04
 
 # set up wandb api
-WANDB_API_KEY=
+#WANDB_API_KEY=
 
 ./venv/bin/python ./qDora.py
 

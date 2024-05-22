@@ -147,8 +147,12 @@ class TrainingArguments(transformers.TrainingArguments):
         default=8,
         metadata={"help":'Number of classes in dataset.'}
     )
+    run_name: str = field(
+        default='hackathon',
+        metadata={"help":'Name of run.'
+    )
     output_dir: str = field(default='./output_cls', metadata={"help": 'The output dir for logs and checkpoints'})
-    optim: str = field(default='adamw_hf', metadata={"help": 'The optimizer to be used'})
+    optim: str = field(default='adamw_torch', metadata={"help": 'The optimizer to be used'})
     per_device_train_batch_size: int = field(default=1, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
     #per_device_eval_batch_size: int = field(default=24, metadata={"help":'The evaluation/prediction batch sizer per GPU. Change if out of memory in evaluation/prediction.'})
     gradient_accumulation_steps: int = field(default=16, metadata={"help": 'How many gradients to accumulate before to perform an optimizer step'})
