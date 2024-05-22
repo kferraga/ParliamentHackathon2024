@@ -321,10 +321,16 @@ def get_accelerate_model(args, checkpoint_dir):
         else:
             print(f'adding Dora modules...')
             config = LoraConfig(
-                target_modules='all-linear', #["value","key", "query", "dense"],
+                #target_modules='all-linear', #["value","key", "query", "dense"],
                 r=8,
                 lora_alpha=16,
                 lora_dropout=0.0,
+                lora_query=True,
+                lora_value=True,
+                lora_projection=True,
+                lora_key=True,
+                lora_mlp=True,
+                lora_head=True,
                 task_type=TaskType.SEQ_CLS,
                 modules_to_save=['classifier'],
             )
