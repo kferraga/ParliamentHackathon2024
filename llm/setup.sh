@@ -13,13 +13,10 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=niklas.oetken@stud.uni-bamberg.de
 
-echo “Starting at” $(date) 
+echo Starting at $(date) 
 set -e 
 # module load python-data/3.10-24.04
 
-# set wandb api key
-WANDB_API_KEY=
-
 ./venv/bin/python ./qDora.py
 
-echo “Finishing at" $(date)
+echo Finishing at $(date)
