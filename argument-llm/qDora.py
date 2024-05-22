@@ -12,7 +12,6 @@ from typing import (
 import numpy as np
 from tqdm import tqdm
 import logging
-import bitsandbytes as bnb
 import pandas as pd
 
 import torch
