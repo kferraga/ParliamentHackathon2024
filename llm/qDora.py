@@ -94,7 +94,7 @@ class DataArguments:
         },
     )
     source_max_len: int = field(
-        default=256,
+        default=520,
         metadata={"help": "Maximum source sequence length. Sequences will be right padded (and possibly truncated)."},
     )
     predict_dataset: str = field(
