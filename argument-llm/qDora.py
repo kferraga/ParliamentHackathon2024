@@ -323,13 +323,19 @@ def get_accelerate_model(args, checkpoint_dir):
         else:
             print(f'adding Dora modules...')
             config = LoraConfig(
-                target_modules='all-linear', #["value","key", "query", "dense"],
+                #target_modules='all-linear', #["value","key", "query", "dense"],
                 r=8,
                 lora_alpha=16,
-                lora_dropout=0.0,
+                lora_dropout=0.5,
+                lora_key=True,
+                lora_value=True,
+                lora_query=True,
+                lora_mlp=True,
+                lora_head=True,
+                lora_projection=True,
                 task_type=TaskType.SEQ_CLS,
-                # modules_to_save=['classifier'],
-                use_dora=True
+                modules_to_save=['classifier'],
+                #use_dora=True
             )
             model = get_peft_model(model, config)
             
