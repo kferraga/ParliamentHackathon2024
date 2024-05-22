@@ -18,10 +18,10 @@ set -e
 # module load python-data/3.10-24.04
 
 # set up wandb api
-#WANDB_API_KEY=
+export WANDB_API_KEY=
 
+./venv/bin/python/wandb login 
 ./venv/bin/python ./qDora.py
 
-wandb login $WANDB_API_KEY
 
 echo Finishing at $(date)

@@ -149,7 +149,7 @@ class TrainingArguments(transformers.TrainingArguments):
     )
     run_name: str = field(
         default='hackathon',
-        metadata={"help":'Name of run.'
+        metadata={"help":'Name of run.'}
     )
     output_dir: str = field(default='./output_cls', metadata={"help": 'The output dir for logs and checkpoints'})
     optim: str = field(default='adamw_torch', metadata={"help": 'The optimizer to be used'})
