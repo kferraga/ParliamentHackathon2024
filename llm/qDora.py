@@ -385,7 +385,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                     train_dataset = train_dataset.select(range(args.max_train_samples))
             except:
                 raise ValueError(f"Error loading train dataset from {args.dataset}")
-            tk_train_dataset=train_dataset.map(lambda examples: tokenizer(examples["text"]), batched=True,remove_columns=["text"], truncation=True)
+            tk_train_dataset=train_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True,remove_columns=["text"])
             print(tk_train_dataset)
     # eval data
     if args.do_eval:
@@ -393,7 +393,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 #eval_dataset = dataset["test"]
                 if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
                     eval_dataset = eval_dataset.select(range(args.max_eval_samples))
-                tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"]), batched=True, remove_columns=["text"], truncation=True)
+                tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True, remove_columns=["text"])
             except:
                 raise ValueError(f"Error loading eval dataset from {args.dataset}")
 
