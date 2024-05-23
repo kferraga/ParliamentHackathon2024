@@ -71,7 +71,7 @@ DEFAULT_PAD_TOKEN = "[MASK]"
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(
-        default= "FacebookAI/xlm-roberta-large"
+        default= "FacebookAI/xlm-roberta-base"
     )
     trust_remote_code: Optional[bool] = field(
         default=False,
