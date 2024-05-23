@@ -364,38 +364,50 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
     tk_eval_dataset = None
     tk_predict_dataset = None
     if args.train_dataset.endswith('.parquet') and args.test_dataset.endswith('.parquet'):
-        try:        
-            dataset = load_dataset("parquet", data_files={'train': args.train_dataset, 'test': args.test_dataset})
+        try:
+            #dataset = load_dataset("parquet", data_files={'train': args.train_dataset, 'test': args.test_dataset})
+            train_df = pd.read_parquet(args.train_dataset)
+            train_dataset = Dataset.from_pandas(train_df)
+
+            test_df = pd.read_parquet(args.test_dataset)
+            eval_dataset = Dataset.from_pandas(test_df)
+
         except:
             raise ValueError(f"Unsupported dataset format: {args.train_dataset}")
+    else:
+      try:
+        dataset = load_dataset(args.dataset)
+      except:
+        raise ValueError(f"Unsupported dataset format: {args.dataset}. Not able to fetch from huggingface")
     # train data
-        if args.do_train:
+    if args.do_train:
             try:
-                train_dataset = dataset["train"]
+                #train_dataset = dataset["train"]
                 if args.max_train_samples is not None and len(train_dataset) > args.max_train_samples:
                     train_dataset = train_dataset.select(range(args.max_train_samples))
             except:
-                raise ValueError(f"Error loading dataset from {args.train_dataset}")   
+                raise ValueError(f"Error loading train dataset from {args.dataset}")
             tk_train_dataset=train_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True,remove_columns=["text"])
             print(tk_train_dataset)
     # eval data
-        if args.do_eval: 
+    if args.do_eval:
             try:
-                eval_dataset = dataset["test"] 
-                #eval_dataset = eval_dataset.remove_columns("labels")
+                #eval_dataset = dataset["test"]
                 if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
                     eval_dataset = eval_dataset.select(range(args.max_eval_samples))
                 tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True, remove_columns=["text"])
             except:
-                raise ValueError(f"Error loading dataset from {args.test_dataset}")                
+                raise ValueError(f"Error loading eval dataset from {args.dataset}")
 
     if args.do_predict:
-        if args.predict_dataset.endswith('.parquet'):   
+        if args.predict_dataset.endswith('.parquet'):
                 try:
                     predict_dataset = load_dataset("parquet", data_files={'predict': args.predict_dataset})
-                    tk_predict_dataset = predict_dataset.map(lambda examples: tokenizer(examples["text"],truncation=True), batched=True, remove_columns=["text"])                
+                    tk_predict_dataset = predict_dataset.map(lambda examples: tokenizer(examples["text"],truncation=True), batched=True, remove_columns=["text"])
                 except:
                     raise ValueError(f"Error loading dataset from {args.predict_dataset}")
+        else:
+          raise ValueError(f"Predict set {args.predict_dataset} does not support parquet format.")
 
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer,
         #pad_to_multiple_of=8
