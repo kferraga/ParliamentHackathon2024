@@ -388,14 +388,15 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 #eval_dataset = dataset["test"]
                 if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
                     eval_dataset = eval_dataset.select(range(args.max_eval_samples))
-                tk_eval_dataset = eval_dataset.map(lambda examples: tokenizer(examples["text"], truncation=True), batched=True, remove_columns=["text"])
+                tk_eval_dataset = eval_dataset.maap(lambda examples: tokenizer(examples["text"], truncation=True), batched=True, remove_columns=["text"])
             except:
                 raise ValueError(f"Error loading eval dataset from {args.dataset}")
 
     if args.do_predict:
         if args.predict_dataset.endswith('.parquet'):
                 try:
-                    predict_dataset = load_dataset("parquet", data_files={'predict': args.predict_dataset})
+                    predict_df = pd.read_parquet(args.predict_dataset)
+                    predict_dataset = Dataset.form_pandas(predict_df)
                     tk_predict_dataset = predict_dataset.map(lambda examples: tokenizer(examples["text"],truncation=True), batched=True, remove_columns=["text"])
                 except:
                     raise ValueError(f"Error loading dataset from {args.predict_dataset}")
