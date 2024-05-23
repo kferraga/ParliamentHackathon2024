@@ -464,7 +464,7 @@ def train():
         predictions = np.argmax(logits, axis=-1)
        
         
-        class_rep = classification_report(y_true=labels,y_pred=predictions,target_names=id2label.values(),output_dict=True)
+        class_rep = classification_report(y_true=labels,y_pred=predictions,target_names=None,output_dict=True)
         b_accuracy = balanced_accuracy_score(y_true=labels,y_pred=predictions)
         top_2_accuracy = top_k_accuracy_score(y_true=labels,y_score=logits,k=2)
         accuracy = accuracy_score(y_true=labels,y_pred=predictions)
