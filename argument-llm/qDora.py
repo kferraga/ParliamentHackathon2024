@@ -138,7 +138,7 @@ class TrainingArguments(transformers.TrainingArguments):
         metadata={"help": "How many bits to use."}
     )
     max_memory_MB: int = field(
-        default=12000,
+        default=32000,
         metadata={"help": "Free memory per gpu."}
     )
     report_to: str = field(
