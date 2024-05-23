@@ -472,7 +472,7 @@ def train():
         return {"precision": precision, "recall": recall, "f1-weighted": f1, 'balanced-accuracy': b_accuracy,"accuracy": accuracy, "top_2_accuracy":top_2_accuracy}#, "roc_auc":roc_auc}
     
     # define trainer
-    trainer = CustomTrainer(
+    trainer = Trainer(
         model=model,
         tokenizer=tokenizer,
         args=training_args,
