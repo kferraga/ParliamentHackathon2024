@@ -104,7 +104,7 @@ class DataArguments:
         metadata={"help": "Which dataset to test on. See datamodule for options."}
     )
     predict_dataset: str = field(
-        default='predict_data/9cut_txt.csv',
+        default='predict.parquet',
         metadata={"help": "Which data to predict on."}
     )
     dataset_format: Optional[str] = field(
