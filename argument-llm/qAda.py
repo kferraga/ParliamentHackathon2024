@@ -396,7 +396,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
         if args.predict_dataset.endswith('.parquet'):
                 try:
                     predict_df = pd.read_parquet(args.predict_dataset)
-                    predict_dataset = Dataset.form_pandas(predict_df)
+                    predict_dataset = Dataset.from_pandas(predict_df)
                     tk_predict_dataset = predict_dataset.map(lambda examples: tokenizer(examples["text"],truncation=True), batched=True, remove_columns=["text"])
                 except:
                     raise ValueError(f"Error loading dataset from {args.predict_dataset}")
