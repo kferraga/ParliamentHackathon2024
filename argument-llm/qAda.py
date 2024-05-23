@@ -103,7 +103,7 @@ class DataArguments:
         metadata={"help": "Which dataset to test on. See datamodule for options."}
     )
     predict_dataset: str = field(
-        default='predict_data/9cut_txt.csv',
+        default='predict.parquet',
         metadata={"help": "Which data to predict on."}
     )
     dataset: Optional[str] = field(
@@ -563,7 +563,7 @@ def train():
         #         fout.write(json.dumps(example) + '\n')
         df = pd.DataFrame({"codes":codes,"probs":probs})
         print(df.head())
-        df.to_parquet(args.predict_dataset+"predictions.parquet",compression="zstd")
+        df.to_parquet("predictions.parquet",compression="zstd")
         trainer.log_metrics("predict", prediction_metrics)
         trainer.save_metrics("predict", prediction_metrics)
 
