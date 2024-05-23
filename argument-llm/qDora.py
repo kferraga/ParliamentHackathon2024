@@ -502,12 +502,9 @@ def train():
     # Training
     if args.do_train:
         logging.info("*** Train ***")
-        # Note: `resume_from_checkpoint` not supported for adapter checkpoints by HF.
-        # Currently adapter checkpoint is reloaded as expected but optimizer/scheduler states are not.
-        # Edit: https://github.com/huggingface/peft/issues/859
        
         if completed_training:
-            train_result = trainer.train(resume_from_checkpoint=checkpoint_dir)
+            train_result = trainer.train(resume_from_checkpoint=True)
             logging.info("*** Resuming from checkpoint. ***")
         else:    
             train_result=trainer.train()
