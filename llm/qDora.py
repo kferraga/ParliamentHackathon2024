@@ -543,7 +543,7 @@ def train():
     if args.do_train:
         logging.info("*** Train ***")
         if completed_training:
-            train_result = trainer.train(resume_from_checkpoint=checkpoint_dir)
+            train_result = trainer.train(resume_from_checkpoint=True)
             logging.info("*** Resuming from checkpoint. ***")
         else:
             train_result=trainer.train()
