@@ -326,7 +326,7 @@ def get_accelerate_model(args, checkpoint_dir):
                 target_modules=["value","key", "query"],
                 r=8,
                 lora_alpha=16,
-                lora_dropout=0.o,
+                lora_dropout=0.0,
                 task_type=TaskType.SEQ_CLS,
                 modules_to_save=['classifier'],
                 #use_dora=True
