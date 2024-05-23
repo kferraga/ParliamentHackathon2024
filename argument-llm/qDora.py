@@ -27,7 +27,8 @@ from transformers import (
 
 )
 from datasets import (
-    load_dataset
+    load_dataset,
+    Dataset
 )
 
 from sklearn.metrics import (
